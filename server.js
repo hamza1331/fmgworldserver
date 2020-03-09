@@ -9,7 +9,7 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const path = require('path')
 // const url = 'mongodb://demo:demo123@ds039417.mlab.com:39417/fmgworld'
-const url = 'mongodb://127.0.0.1:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false/fmgworld'
+const url = 'mongodb://localhost:27017/fmgworld'
 // const url = 'mongodb://demo:demo123@ds347467.mlab.com:47467/artisanpractice'
 const port = process.env.PORT || 5001
 const cors = require('cors')
