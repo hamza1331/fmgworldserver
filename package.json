@@ -1,0 +1,28 @@
+{
+  "name": "fmgbackend",
+  "version": "1.0.0",
+  "description": "FMG World app backend",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "author": "Hamza Ali",
+  "license": "ISC",
+  "dependencies": {
+    "archiver": "^3.1.1",
+    "archiver-zip-encryptable": "^1.0.6",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "firebase-admin": "^8.2.0",
+    "logger": "0.0.1",
+    "mime": "^2.4.4",
+    "mongoose": "^5.5.1",
+    "multer": "^1.4.2",
+    "node-cron": "^2.0.3",
+    "node-fetch": "^2.5.0",
+    "nodemon": "^2.0.2",
+    "socket.io": "^2.2.0"
+  }
+}
