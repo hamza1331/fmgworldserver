@@ -1218,7 +1218,7 @@ var archive = archiver('zip-encryptable', {
     output.on('close', ()=> {
       console.log(archive.pointer() + ' total bytes');
       console.log('archiver has been finalized and the output file descriptor has closed.');
-      res.download(__dirname+ `/uploads/${req.params.filename}.zip`)
+      res.sendFile(__dirname+ `/uploads/${req.params.filename}.zip`)
     });
     
     output.on('end', function() {
@@ -1251,7 +1251,14 @@ var archive = archiver('zip-encryptable', {
     // 'close', 'end' or 'finish' may be fired right after calling this method so register to them beforehand
     archive.finalize();
   })
-
+app.get('/api/getPdfFile:filename',(req,res)=>{
+ try{
+      res.sendFile(__dirname+ `/uploads/${req.params.filename}`)
+ }
+ catch(e){
+   res.json(handleErr("File not found")
+ }
+})
   app.get('/download', function(req, res){    //working
 
     var file = __dirname + '/uploads/video.txt';
@@ -1265,7 +1272,16 @@ var archive = archiver('zip-encryptable', {
     var filestream = fs.createReadStream(file);
     filestream.pipe(res);
   });
-
+//get covers
+	 
+app.get('/api/getCovers'(req,res)=>{
+   Cover.find({},(err,doc)=>{
+    if(err)return res.json(handleErr(err))
+      else{
+        return res.json(handleSuccess(doc))
+      }
+   })
+})
   cron.schedule('* 50 * * * *', () => {
     console.log('running a task 50th minute');
     let date = new Date()
