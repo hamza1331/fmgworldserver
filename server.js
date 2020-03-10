@@ -1256,7 +1256,7 @@ app.get('/api/getPdfFile:filename',(req,res)=>{
       res.sendFile(__dirname+ `/uploads/${req.params.filename}`)
  }
  catch(e){
-   res.json(handleErr("File not found")
+   res.json(handleErr("File not found"))
  }
 })
   app.get('/download', function(req, res){    //working
@@ -1274,7 +1274,7 @@ app.get('/api/getPdfFile:filename',(req,res)=>{
   });
 //get covers
 	 
-app.get('/api/getCovers'(req,res)=>{
+app.get('/api/getCovers',(req,res)=>{
    Cover.find({},(err,doc)=>{
     if(err)return res.json(handleErr(err))
       else{
