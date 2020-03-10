@@ -7,6 +7,10 @@ overAllActivity:[{type:Schema.Types.ObjectId,ref:"lectures"}],
 firebaseUID:{
     type:String,
     required:true
+},
+notificationLength:{
+    type:Number,
+    default:0
 }
 });
 

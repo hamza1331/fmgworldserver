@@ -707,24 +707,12 @@ app.delete('/api/deleteLecture',(req,res)=>{
 
 app.post('/api/watchVideo',(req,res)=>{ //tested
   if(req.body.firebaseUID){
-    /* 
-    REQUIRED DATA:
-      lectureID,
-      firebaseUID,
-      path
-     */
+   
     Activity.findOneAndUpdate({firebaseUID:req.body.firebaseUID},{$push:{overAllActivity:req.body.lectureID}},{new:true},(err,doc)=>{
       if(err)return res.json(handleErr(err))
-      var file = __dirname + '/uploads/'+req.body.path;
-  
-      var filename = path.basename(file);
-      var mimetype = mime.getType(file);
-    
-      res.setHeader('Content-disposition', 'attachment; filename=' + filename);
-      res.setHeader('Content-type', mimetype);
-    
-      var filestream = fs.createReadStream(file);
-      filestream.pipe(res);
+     else{
+      res.json(handleSuccess(doc))
+     }
     })
 
   }else{
@@ -1462,6 +1450,84 @@ app.get('/api/getAdvertisement',(req,res)=>{
       return res.json(handleSuccess(docs))
     }
   })
+})
+
+//bell icon
+app.get('/api/remainNotifications:firebaseUID',(req,res)=>{
+  if(req.params.firebaseUID){
+    Activity.findOne({firebaseUID:req.params.firebaseUID},(err,doc)=>{
+      if(err)return res.json(handleErr(err))
+        else{
+          News.find({},(err,docs)=>{
+            if(err)return res.json(handleErr(err))
+            else{
+              return res.json(handleSuccess({
+                noOfSeenNotifications:doc.notificationLength,
+                totalNews:docs.length
+              }))
+            }
+          })
+        }
+    })
+  }
+  else{
+  res.send("Invalid FirebaseUID")
+  }
+
+  
+})
+app.put('/api/updateNotificationLength',(req,res)=>{
+const data={
+notificationLength:req.body.length
+}
+Activity.findOneAndUpdate({firebaseUID:req.body.firebaseUID},data,{new:true},(err,doc)=>{
+if(err)return res.json(handleErr(err))
+  else{
+    res.json(handleSuccess(doc))
+  }
+})
+})
+app.post('/getPercentageValues',(req,res)=>{
+  //  if(req.body.firebaseUID){
+    Activity.findOne({firebaseUID:req.body.firebaseUID},(err,doc)=>{
+      if(err)return res.json(handleErr(err))
+        else{
+          var lengthOfOverAll=doc.overAllActivity.length
+          Lecture.find({sessionID:req.body.sessionID,isVideo:true},(err,docs)=>{
+            if(err)return res.json(handleErr(err))
+            else{
+              var totalLecs=docs.length
+
+              res.json({
+                overAll:lengthOfOverAll,
+                total:totalLecs
+              })
+            }
+          })
+        }
+    })
+  //  }
+  //  else{
+  //    res.json({
+  //      err:"Invalid Firebase UID"
+  //    })
+  //  }
+})
+app.put('/api/updateRecomm',(req,res)=>{ 
+  console.log(req.body)   //tested
+  if(req.body.firebaseUID){
+    let data = req.body
+    User.findOneAndUpdate({firebaseUID:data.firebaseUID},data,{new:true},(err,doc)=>{
+      if(err)return res.json(handleErr(err))
+      else{
+        return res.json(handleSuccess(doc))
+      }
+    })
+  }
+  else{
+    return res.json(handleErr("Valid firebaseUID is required"))
+
+  }
 })
 
 //Server

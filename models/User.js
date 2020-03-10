@@ -74,6 +74,10 @@ const UserSchema = new mongoose.Schema({
   mobile:{
       type:String,
       unique:[true,'Mobile number should be unique']
+  },
+  recommended:{
+    type:Boolean,
+    default:false
   }
 });
 

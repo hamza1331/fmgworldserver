@@ -7,6 +7,10 @@ const subjectsSchema = new mongoose.Schema({
   title:{
       type:String,
       required:true
+  },
+  isWeak:{
+    type:Boolean,
+    default:false
   }
 });
 
