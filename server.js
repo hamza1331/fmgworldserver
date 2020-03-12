@@ -1550,6 +1550,17 @@ app.put('/api/updateRecomm',(req,res)=>{
       res.sendFile(file)
     }
   })
+//get exam by session
+app.get('/api/getExam:sessionID',(req,res)=>{
+  if(req.params.sessionID!==undefined){
+    Exam.findOne({sessionID:req.params.sessionID},(err,doc)=>{
+      if(err)return res.json(handleErr(err))
+      else{
+        return res.json(handleSuccess(doc))
+      }
+    })
+  }
+})
 //Server
 server.listen(port, function () {
   console.log('Listening on port' + port)
