@@ -1544,7 +1544,12 @@ app.put('/api/updateRecomm',(req,res)=>{
 
   }
 })
-
+  app.get('/api/getLecVideo:filename',(req,res)=>{
+    if(req.params.filename!==undefined){
+      const file = __dirname + `/uploads/${req.params.filename}`
+      res.sendFile(file)
+    }
+  })
 //Server
 server.listen(port, function () {
   console.log('Listening on port' + port)
