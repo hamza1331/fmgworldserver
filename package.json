@@ -14,7 +14,7 @@
     "archiver-zip-encryptable": "^1.0.6",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "firebase-admin": "^8.2.0",
     "logger": "0.0.1",
     "mime": "^2.4.4",
